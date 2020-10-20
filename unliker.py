@@ -84,6 +84,9 @@ class Unliker():
                     break
 
             print('Grabbed', liked['num_results'], 'more posts.')
+            if liked['num_results'] == 0:
+                print("No more posts to unlike.")
+                break
 
         print('Finished deleting liked photos')
 
