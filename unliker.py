@@ -26,8 +26,8 @@ class Unliker():
     def __init__(self):
         settings_file = "settings.json"
 
-        if len(sys.argv) != 3:
-            print('Usage: python unliker.py username password')
+        if len(sys.argv) < 3:
+            print('Usage: python unliker.py username password max_remove(optional)')
             os._exit(1)
         else:
             self.user = sys.argv[1]
@@ -91,4 +91,4 @@ class Unliker():
 
 
 unliker = Unliker()
-unliker.unlike([unliker.followerFilter, unliker.dogFilter])
+unliker.unlike([unliker.followerFilter, unliker.dogFilter], 40 if len(sys.argv) <= 3 else sys.argv[3])
