@@ -67,26 +67,25 @@ class Unliker():
 
             print('Beginning deletion of liked photos')
 
+            for p in liked['items']:
+                post_id = p['id']
+
+                if not any([f(p) for f in filters]):
+                    print('Deleted', post_id, 'by', p['user']['username'])
+                    self.api.delete_like(post_id)
+                    removed += 1
+
+
+            print('Grabbing more posts...')
+
             while True:
-                for p in liked['items']:
-                    post_id = p['id']
+                liked = self.api.feed_liked()
+                if liked['status'] == 'ok':
+                    break
 
-                    if not any([f(p) for f in filters]):
-                        print('Deleted', post_id, 'by', p['user']['username'])
-                        self.api.delete_like(post_id)
-                        removed += 1
+            print('Grabbed', liked['num_results'], 'more posts.')
 
-
-                print('Grabbing more posts...')
-
-                while True:
-                    liked = self.api.feed_liked()
-                    if liked['status'] == 'ok':
-                        break
-
-                print('Grabbed', liked['num_results'], 'more posts.')
-
-            print('Finished deleting liked photos')
+        print('Finished deleting liked photos')
 
 
 
