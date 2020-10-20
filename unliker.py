@@ -74,6 +74,8 @@ class Unliker():
                     print('Deleted', post_id, 'by', p['user']['username'])
                     self.api.delete_like(post_id)
                     removed += 1
+                    if removed >= max_remove:
+                        break
 
 
             print('Grabbing more posts...')
@@ -93,4 +95,4 @@ class Unliker():
 
 
 unliker = Unliker()
-unliker.unlike([unliker.followerFilter, unliker.dogFilter], 40 if len(sys.argv) <= 3 else sys.argv[3])
+unliker.unlike([unliker.followerFilter, unliker.dogFilter], 40 if len(sys.argv) <= 3 else int(sys.argv[3]))
